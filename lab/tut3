@@ -1,0 +1,49 @@
+public:
+    void merge(int arr[], int l, int m, int r)
+    {
+        int left=m-l+1;
+        int right=r-m;
+        int le[left],ri[right];
+        for (int i=0;i<left;i++){
+            le[i]=arr[i+l];
+        }
+        for (int i=0;i<right;i++){
+            ri[i]=arr[i+m+1];
+        }
+        int k1=0;
+        int k2=0;
+        int r1=l;
+        while(k1<left&&k2<right){
+            if (le[k1]>=ri[k2]){
+                arr[r1]=ri[k2];
+                r1++;
+                k2++;
+            }
+            if (le[k1]<ri[k2]){
+                arr[r1]=le[k1];
+                k1++;
+                r1++;
+            }
+        }
+        while(k1<left){
+            arr[r1]=le[k1];
+            k1++;
+            r1++;
+        }
+        while(k2<right){
+            arr[r1]=ri[k2];
+            k2++;
+            r1++;
+        }
+    }
+    public:
+    void mergeSort(int arr[], int l, int r)
+    {
+        if (l<r)
+        {
+            int mid=(l+r)/2;
+            mergeSort(arr,l,mid);
+            mergeSort(arr,mid+1,r);
+            merge(arr,l,mid,r);
+        }
+    }
